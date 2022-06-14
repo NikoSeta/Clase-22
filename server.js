@@ -1,11 +1,8 @@
 const express = require('express');
+const { Router } = express;
+const router = Router();
 const app = express();
 const { PORT } = require ('./src/config/globals')
-const { schema, normalize, denormalize } = require('normalizr') 
-const util = require('util')
-
-app.use(express.json());
-app.use(express.urlencoded({extended : true}));
 
 
 const server = app.listen(PORT, () => {
