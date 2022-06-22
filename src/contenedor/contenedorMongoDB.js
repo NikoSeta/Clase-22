@@ -1,32 +1,31 @@
-import mongoose from ("mongoose");
-import * as model from ('./src/models/usuarios.js');
-import { mongoDb } from "../config/globals.js";
-const {generarProductos} = require('../utils/generadorDeProductos')
+const mongoose = require('mongoose');
+const productos = require ("../models/productosMongo.js");
+const { mongoUri } = require ('../config/globals');
+const { generarProductos } = require('../utils/generadorProductos');
+require('dotenv').config();
 
-const URL = mongoDb;
-
-let respuesta = await mongoose.connect(URL, {
+let respuesta = mongoose.connect(`${mongoUri}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-console.log('Base de datos Mongo conectada');
-class ContenedorMongoDB {
-    constructor(URL) {
-        this.URL = URL;
-    }
-    async createProd (){
-        const productos = {
-            generarProductos
-        };
-        const productoSaveModel = new model.productos(productos);
-        let productsSave = await productoSaveModel.save();
-        console.log(productsSave);
-    }
+console.log('Base de datos MongoDB conectada');
 
-    async getAll() {
+class ContenedorMongoDB {
+    constructor(URL, productos) {
+        this.URL = URL;
+        this.productos = productos;
+    }
+    async getAll(){
         let content = [];
         let productos = await model.productos.find({});
         content = JSON.parse(productos);
+    }
+
+    async createProd(){
+        const productos = { generarProductos };
+        const productoSaveModel = new model.productos(productos);
+        let productsSave = await productoSaveModel.save();
+        console.log(productsSave);
     }
 
     async getById(id) {
@@ -42,7 +41,7 @@ class ContenedorMongoDB {
         return content;
     }
 
-    upgrade(content) {
+    async upgrade(content) {
         let contentArray = this.getAll();
         
         let index = contentArray.findIndex(elem => {

@@ -1,16 +1,13 @@
+const ContenedorMongoDB = require ('../contenedor/contenedorMongoDB');
 const express = require('express');
-const { Router } = express;
-const router = Router();
-const ContenedorMongoDB = require('../API/productos')
-const contenedorMongoDB = new ContenedorMongoDB();
+const routerProd = express.Router();
+const contenedorMongoDB = new ContenedorMongoDB
 
+routerProd.get('/', async (req, res) => {
+    let products = await contenedorMongoDB.getAll();
+    res.render('index',{
+        products: products
+    });
+});
 
-
-// Listar todos
-app.get('/', async function(req, res){
-
- });
-
-
-module.exports = app;
-
+module.exports = routerProd;

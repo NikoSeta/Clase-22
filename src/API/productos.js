@@ -1,5 +1,5 @@
 const ContenedorMemoria = require('../contendores/ContenedorMemoria')
-const {generarProductos} = require('../utils/generadorDeProductos')
+const { generarProductos } = require('../utils/generadorDeProductos')
 
 class ProductosMock extends ContenedorMemoria {
     constructor() {

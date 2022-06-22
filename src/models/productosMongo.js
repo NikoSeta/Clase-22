@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require ("mongoose");
 
 const productosCollection = 'productos';
 
@@ -8,4 +8,6 @@ const productosSchema = new mongoose.Schema({
     img: {type: String, required: true},
 });
 
-export const productos = mongoose.model(productosCollection, productosSchema);
+const productos = mongoose.model(productosCollection, productosSchema);
+
+module.exports = productos;
