@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-const productos = require ("../models/productosMongo.js");
 const { mongoUri } = require ('../config/globals');
 const { generarProductos } = require('../utils/generadorProductos');
-require('dotenv').config();
 
 let respuesta = mongoose.connect(`${mongoUri}`, {
     useNewUrlParser: true,
@@ -11,14 +9,14 @@ let respuesta = mongoose.connect(`${mongoUri}`, {
 console.log('Base de datos MongoDB conectada');
 
 class ContenedorMongoDB {
-    constructor(URL, productos) {
-        this.URL = URL;
-        this.productos = productos;
+    constructor(model) {
+        this.model = model;
     }
+    
     async getAll(){
         let content = [];
-        let productos = await model.productos.find({});
-        content = JSON.parse(productos);
+        let products = await this.model.find();
+        content = JSON.parse(products);
     }
 
     async createProd(){

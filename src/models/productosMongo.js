@@ -8,6 +8,4 @@ const productosSchema = new mongoose.Schema({
     img: {type: String, required: true},
 });
 
-const productos = mongoose.model(productosCollection, productosSchema);
-
-module.exports = productos;
+module.exports = mongoose.model(productosCollection, productosSchema);
