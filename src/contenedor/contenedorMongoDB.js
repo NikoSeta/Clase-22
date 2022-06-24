@@ -16,7 +16,7 @@ class ContenedorMongoDB {
     async getAll(){
         let content = [];
         let products = await this.model.find();
-        content = JSON.parse(products);
+        return products;
     }
 
     async createProd(){
