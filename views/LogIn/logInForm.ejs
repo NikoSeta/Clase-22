@@ -4,6 +4,11 @@
             border-radius: 15px;
             color:#ffc107;
             background-color: #757170;">
+            <div>
+              <h3 style="background-color: #212529;
+                        text-align: center;
+                        border-radius: 15px;" >Ingreso de usuario</h3>
+            </div>
   <form>
       <div class="mb-3">
           <label class="form-label">User Name</label>
@@ -13,13 +18,25 @@
           <label class="form-label">Password</label>
           <input type="password" class="form-control" id="contrasenia">
       </div>
-      <button 
-        onclick="datosLogIn()"
+      <div style="text-align:center;">
+        <button 
         style="margin-bottom: 10px" 
         type="submit" 
+        value="login" 
         class="btn btn-warning text-align: center">
         Log in
-    </button>
+        </button>
+      </div>
+      <form action="/signUp">
+        <div>
+          <button 
+          style="margin-bottom: 10px" 
+          type="submit"
+          value="SignIn" 
+          class="btn btn-success text-align: center">
+          Sign in
+          </button>
+        </div>
+      </form>
   </form>
-  <h2>Bienvenido usuario</h2>
 </div>
