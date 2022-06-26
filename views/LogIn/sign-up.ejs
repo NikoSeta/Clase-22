@@ -1,0 +1,49 @@
+<div class="container my-5">
+    <div style="max-width: 500px; 
+            margin: 30px auto;
+            padding: 10px;
+            border-radius: 15px;
+            color:#ffc107;
+            background-color: #757170;">
+        <h3 style="background-color: #212529;
+                  text-align: center;
+                  border-radius: 15px;" >Nuevo usuario</h3>
+    
+    <form class="form" role="form" action="/signup" method="post" autocomplete="off">
+      <div class="form-group">
+        <label for="user name" class="form-label">User Name</label>
+        <input name='username' class="form-control" type="text" required>
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label">Contraseña</label>
+        <input name='password' class="form-control" type="password" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input name='firstname' class="form-control" type="text" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input name='lastname' class="form-control" type="text" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input name='email' class="form-control" type="email" required>
+      </div>
+  
+      <div class="form-group">
+        <input class="btn btn-warning my-3" type="submit" value="Sing up">
+      </div>
+    </form>
+    <hr>
+    <form action="/">
+      <div class="text-center"></div>
+          <button class="btn btn-success my-3">Back to home</button>
+      </div>
+    </form>
+  </div>
+</div>
+  

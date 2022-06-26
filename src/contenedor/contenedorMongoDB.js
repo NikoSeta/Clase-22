@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 const { mongoUri } = require ('../config/globals');
 const { generarProductos } = require('../utils/generadorProductos');
 
-let respuesta = mongoose.connect(`${mongoUri}`, {
+
+mongoose.connect(`${mongoUri}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
-console.log('Base de datos MongoDB conectada');
+    },()=>console.log('Base de datos MongoDB conectada')
+);
 
 class ContenedorMongoDB {
     constructor(model) {

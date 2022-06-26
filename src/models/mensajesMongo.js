@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require ("mongoose");
 
 const mensajesCollection = 'mensajes';
 
@@ -11,4 +11,6 @@ const mensajesSchema = new mongoose.Schema({
     text: {type: String, required: true, max: 500},
 });
 
-export const mensajes = mongoose.model(mensajesCollection, mensajesSchema);
+let mensajesModel = mongoose.model(mensajesCollection, mensajesSchema);
+
+module.exports = mensajesModel;

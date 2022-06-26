@@ -2,19 +2,23 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const routerProd = require('./src/routes/produtos');
+const mensajesModel = require ('./src/models/mensajesMongo');
 const productosModel = require('./src/models/productosMongo');
+const UserModel = require('./src/models/usuariosMongo')
 const { PORT } = require ('./src/config/globals');
-const { TIEMPO_EXPIRACION } = require('./src/config/globals')
+const { TIEMPO_EXPIRACION } = require('./src/config/globals');
 const {validatePass} = require('./src/utils/passValidator');
-const {createHash} = require('./src/utils/hashGenerator')
+const {createHash} = require('./src/utils/hashGenerator');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(express.static(__dirname + "/views"));
+app.use(express.static(__dirname + "/parcial"));
+
 //--INICIAR SESSION
 app.use(session({
     secret: 'usuarios',
@@ -27,22 +31,9 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 app.use(passport.initialize())
 app.use(passport.session())
-
-app.engine(
-    "ejs", 
-    ejs.engine({
-        extname: ".ejs",
-        defaultLayout: 'index.ejs',
-        layoutsDir: __dirname + "/src/views/layouts",
-        partialsDir: __dirname + "/src/views/partials/",
-        runtimeOptions: {
-            allowProtoPropertiesByDefault: true,
-            allowProtoMethodsByDefault: true,
-        }
-    })
-);
 
 //--PASSPORT
 passport.use('login', new LocalStrategy(
@@ -120,28 +111,28 @@ passport.deserializeUser((id, callback) => {
 app.get('/', routerProd.getRoot);
 
 //  LOGIN
-app.get('/login', routes.getLogin);
-app.post('/login', passport.authenticate('login', { failureRedirect: '/faillogin' }), routes.postLogin);
-app.get('/faillogin', routes.getFaillogin);
+app.get('/login', routerProd.getLogin);
+app.post('/login', passport.authenticate('login', { failureRedirect: '/faillogin' }), routerProd.postLogin);
+app.get('/faillogin', routerProd.getFaillogin);
 
 //  SIGNUP
-app.get('/signup', routes.getSignup);
-app.post('/signup', passport.authenticate('signup', { failureRedirect: '/failsignup' }), routes.postSignup);
-app.get('/failsignup', routes.getFailsignup);
+app.get('/signup', routerProd.getSignup);
+app.post('/signup', passport.authenticate('signup', { failureRedirect: '/failsignup' }), routerProd.postSignup);
+app.get('/failsignup', routerProd.getFailsignup);
 
 //  LOGOUT
-app.get('/logout', routes.getLogout);
+app.get('/logout', routerProd.getLogout);
 
 
 // PROFILE
-app.get('/profile', routes.getProfile);
+app.get('/profile', routerProd.getProfile);
 
-app.get('/ruta-protegida', routes.checkAuthentication, (req, res) => {
+app.get('/ruta-protegida', routerProd.checkAuthentication, (req, res) => {
     res.render('protected')
 });
 
 //  FAIL ROUTE
-app.get('*', routes.failRoute);
+app.get('*', routerProd.failRoute);
 
 const server = app.listen(PORT, () => {
     console.log(`Ir a la página http://localhost:${PORT}`);

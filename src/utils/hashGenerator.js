@@ -6,6 +6,6 @@ function createHash(password) {
         bcrypt.genSaltSync(10),
         null
     )
-}
+};
 
 module.exports = {createHash}

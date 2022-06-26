@@ -8,6 +8,6 @@ const UsuarioSchema = new mongoose.Schema({
     email: {type: String, required: true, max: 100},
     username: {type: String, required: true, max: 100},
     password: {type: String, required: true, max: 100}
-})
+});
 
 module.exports = mongoose.model(usuariosCollection, UsuarioSchema)

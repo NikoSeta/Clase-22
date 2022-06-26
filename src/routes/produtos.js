@@ -1,6 +1,6 @@
 //--DIRECCION MAIN
 function getRoot(req, res) {
-    res.render('main')
+    res.render('index')
 }
 //--DIRECCION LOG IN
 function getLogin(req, res) {
