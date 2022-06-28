@@ -5,29 +5,29 @@ function getRoot(req, res) {
 //--DIRECCION LOG IN
 function getLogin(req, res) {
     if (req.isAuthenticated()) {
-        res.redirect('profile')
+        res.redirect('profileUser')
     } else {
-        res.render('login');
+        res.render('logInForm');
     }
 }
 //--DIRECCION SIGN UP
 function getSignup(req, res) {
-    res.render('signup');
+    res.render('sign-up');
 }
 //--DIRECCION DESPUES DE LOG IN
 function postLogin (req, res) {
     if (req.isAuthenticated()) {
-        res.redirect('profile')
+        res.redirect('profileUser')
     } else {
-        res.redirect('login')
+        res.redirect('logInForm')
     }
 }
 //--DIRECCION DESPUES DE SIGN IN
 function postSignup (req, res) {
     if (req.isAuthenticated()) {
-        res.redirect('profile')
+        res.redirect('profileUser')
     } else {
-        res.redirect('login')
+        res.redirect('logInForm')
     }
 }
 //--DIRECCION DEL PERFIL
@@ -36,18 +36,18 @@ function getProfile (req, res) {
         let user = req.user;
         res.render('profileUser', { user: user, isUser:true })
     } else {
-        res.redirect('login')
+        res.redirect('logInForm')
     }
 }
 //--DIRECCION DE FALLA LOG IN
 function getFaillogin (req, res) {
     console.log('error en login');
-    res.render('login-error', {});
+    res.render('log-in-err', {});
 }
 //--DIRECCION DE FALLA SIGN IN
 function getFailsignup (req, res) {
     console.log('error en signup');
-    res.render('signup-error', {});
+    res.render('sign-up-err', {});
 }
 //--DIRECCION DE LOG OUT
 function getLogout (req, res) {
