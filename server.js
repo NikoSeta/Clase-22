@@ -2,9 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const routerProd = require('./src/routes/produtos');
-const mensajesModel = require ('./src/models/mensajesMongo');
-const productosModel = require('./src/models/productosMongo');
-const UserModel = require('./src/models/usuariosMongo')
+const UserModel = require('./src/models/usuariosMongo');
 const { PORT } = require ('./src/config/globals');
 const { TIEMPO_EXPIRACION } = require('./src/config/globals');
 const {validatePass} = require('./src/utils/passValidator');
@@ -12,12 +10,11 @@ const {createHash} = require('./src/utils/hashGenerator');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(express.static(__dirname + "/parcial"));
+app.use(express.static(__dirname + "/public"));
 
 //--INICIAR SESSION
 app.use(session({
@@ -109,6 +106,7 @@ passport.deserializeUser((id, callback) => {
 
 //  INDEX
 app.get('/', routerProd.getRoot);
+
 
 //  LOGIN
 app.get('/login', routerProd.getLogin);

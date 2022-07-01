@@ -1,3 +1,4 @@
+<%- include('../partial/header.ejs') %>
 <div style="max-width: 500px; 
             margin: 30px auto;
             padding: 10px;
@@ -27,16 +28,12 @@
         Log in
         </button>
       </div>
-      <form action="/signUp">
-        <div style="text-align:center;">
-          <button 
-          style="margin-bottom: 10px" 
-          type="submit"
-          value="SignIn" 
-          class="btn btn-success text-align: center">
-          Sign in
-          </button>
+      <hr>
+      <form action="/">
+        <div class="text-center"></div>
+            <button class="btn btn-success my-3">Back to home</button>
         </div>
       </form>
   </form>
 </div>
+<%- include('../partial/footer.ejs') %>

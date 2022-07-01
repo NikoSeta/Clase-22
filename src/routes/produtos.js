@@ -1,3 +1,4 @@
+
 //--DIRECCION MAIN
 function getRoot(req, res) {
     res.render('index')
@@ -49,18 +50,19 @@ function getFailsignup (req, res) {
     console.log('error en signup');
     res.render('sign-up-err', {});
 }
+
 //--DIRECCION DE LOG OUT
 function getLogout (req, res) {
     req.logout( (err) => {
         //--logout -> metodo propio de passport
         if (!err) {
-            res.render('main');
+            res.render('index');
         } 
     });
 }
 //--DIRECCION DE ERROR 
 function failRoute(req, res){
-    res.status(404).render('routing-error', {});
+    res.status(404).render('routing-err', {});
 }
 //--AUTENTICACION DE USUARIO
 function checkAuthentication(req, res, next) {
@@ -68,7 +70,7 @@ function checkAuthentication(req, res, next) {
         //req.isAuthenticated() will return true if user is logged in
         next();
     } else {
-        res.redirect("/login");
+        res.redirect("/logInForm");
     }
 }
 
