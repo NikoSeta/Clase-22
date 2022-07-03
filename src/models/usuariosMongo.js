@@ -10,4 +10,6 @@ const UsuarioSchema = new mongoose.Schema({
     password: {type: String, required: true, max: 100}
 });
 
-module.exports = mongoose.model(usuariosCollection, UsuarioSchema)
+let UserModel = mongoose.model(usuariosCollection, UsuarioSchema)
+
+module.exports = UserModel;

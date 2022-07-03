@@ -1,9 +1,8 @@
+const { generarProductos } = require('../utils/generadorProductos');
 const mongoose = require('mongoose');
 const { mongoUri } = require ('../config/globals');
-const { generarProductos } = require('../utils/generadorProductos');
 
-
-mongoose.connect(`${mongoUri}`, {
+let iniciarMongo = mongoose.connect(`${mongoUri}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
     },()=>console.log('Base de datos MongoDB conectada')
@@ -15,7 +14,6 @@ class ContenedorMongoDB {
     }
     
     async getAll(){
-        let content = [];
         let products = await this.model.find();
         return products;
     }
@@ -69,4 +67,4 @@ class ContenedorMongoDB {
     }
 }
 
-module.exports = ContenedorMongoDB;
+module.exports = ContenedorMongoDB, iniciarMongo;

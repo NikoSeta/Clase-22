@@ -1,7 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const app = express();
-const routerProd = require('./src/routes/produtos');
+const routerLog = require('./src/routes/session');
+const routerProd = require('./src/routes/productos');
 const UserModel = require('./src/models/usuariosMongo');
 const { PORT } = require ('./src/config/globals');
 const { TIEMPO_EXPIRACION } = require('./src/config/globals');
@@ -9,6 +10,8 @@ const {validatePass} = require('./src/utils/passValidator');
 const {createHash} = require('./src/utils/hashGenerator');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const iniciarMongo = require('./src/contenedor/contenedorMongoDB');
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -36,6 +39,7 @@ app.use(passport.session())
 passport.use('login', new LocalStrategy(
     //--paramatros user, pass, function callback
     (username, password, callback) => {
+        iniciarMongo
         UserModel.findOne({ username: username }, (err, user) => {
             if (err) {
                 return callback(err)
@@ -68,7 +72,6 @@ passport.use('signup', new LocalStrategy(
                 console.log('El usuario ya existe');
                 return callback(null, false)
             }
-
             //--TOMO LOS DATOS DEL FRONT
             const newUser = {
                 firstName: req.body.firstname,
@@ -84,10 +87,8 @@ passport.use('signup', new LocalStrategy(
                     console.log('Hay un error al registrarse');
                     return callback(err)
                 }
-
                 console.log(userWithId);
                 console.log('Registro de usuario satisfactoria');
-
                 return callback(null, userWithId)
             })
         })
@@ -105,32 +106,33 @@ passport.deserializeUser((id, callback) => {
 
 
 //  INDEX
-app.get('/', routerProd.getRoot);
-
+app.get('/', routerLog.getRoot);
 
 //  LOGIN
-app.get('/login', routerProd.getLogin);
-app.post('/login', passport.authenticate('login', { failureRedirect: '/faillogin' }), routerProd.postLogin);
-app.get('/faillogin', routerProd.getFaillogin);
+app.get('/login', routerLog.getLogin);
+app.post('/login', passport.authenticate('login', { failureRedirect: '/faillogin' }), routerLog.postLogin);
+app.get('/faillogin', routerLog.getFaillogin);
 
 //  SIGNUP
-app.get('/signup', routerProd.getSignup);
-app.post('/signup', passport.authenticate('signup', { failureRedirect: '/failsignup' }), routerProd.postSignup);
-app.get('/failsignup', routerProd.getFailsignup);
+app.get('/signup', routerLog.getSignup);
+app.post('/signup', passport.authenticate('signup', { failureRedirect: '/failsignup' }), routerLog.postSignup);
+app.get('/failsignup', routerLog.getFailsignup);
 
 //  LOGOUT
-app.get('/logout', routerProd.getLogout);
-
+app.get('/logout', routerLog.getLogout);
 
 // PROFILE
-app.get('/profile', routerProd.getProfile);
+app.get('/profileUser', routerLog.getProfile);
 
-app.get('/ruta-protegida', routerProd.checkAuthentication, (req, res) => {
+app.get('/ruta-protegida', routerLog.checkAuthentication, (req, res) => {
     res.render('protected')
 });
 
 //  FAIL ROUTE
-app.get('*', routerProd.failRoute);
+app.get('*', routerLog.failRoute);
+
+// PRODUCTOS
+app.get('/productos', routerProd.verProductos);
 
 const server = app.listen(PORT, () => {
     console.log(`Ir a la página http://localhost:${PORT}`);

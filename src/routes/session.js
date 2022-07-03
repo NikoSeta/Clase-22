@@ -1,4 +1,3 @@
-
 //--DIRECCION MAIN
 function getRoot(req, res) {
     res.render('index')
@@ -48,7 +47,7 @@ function getFaillogin (req, res) {
 //--DIRECCION DE FALLA SIGN IN
 function getFailsignup (req, res) {
     console.log('error en signup');
-    res.render('sign-up-err', {});
+    res.render('sign-up-err');
 }
 
 //--DIRECCION DE LOG OUT
@@ -70,9 +69,11 @@ function checkAuthentication(req, res, next) {
         //req.isAuthenticated() will return true if user is logged in
         next();
     } else {
-        res.redirect("/logInForm");
+        res.redirect('/logInForm');
     }
 }
+
+
 
 module.exports = {
     getRoot,
@@ -85,5 +86,5 @@ module.exports = {
     postSignup,
     getFailsignup,
     checkAuthentication,
-    getProfile
+    getProfile   
 }
