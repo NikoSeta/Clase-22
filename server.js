@@ -11,13 +11,14 @@ const {createHash} = require('./src/utils/hashGenerator');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const iniciarMongo = require('./src/contenedor/contenedorMongoDB');
+const carrito = require('./src/routes/carrito');
 
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/partial"));
 
 //--INICIAR SESSION
 app.use(session({
@@ -106,6 +107,8 @@ passport.deserializeUser((id, callback) => {
 
 
 //  INDEX
+
+
 app.get('/', routerLog.getRoot);
 
 //  LOGIN
@@ -133,6 +136,10 @@ app.get('*', routerLog.failRoute);
 
 // PRODUCTOS
 app.get('/productos', routerProd.verProductos);
+
+// CARRITO
+
+app.get('/carrito', carrito.verCarrito)
 
 const server = app.listen(PORT, () => {
     console.log(`Ir a la página http://localhost:${PORT}`);

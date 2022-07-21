@@ -1,0 +1,29 @@
+<%- include('../partial/header.ejs') %>
+
+<% if (carrito.length > 0){ %> 
+    <h3>Carrito</h3>
+    <%for(carrito of carrito){ %>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img style="width: 30px; height: 30px;" src= <%=carrito.url  %> >
+            </div>
+            <div class="col">
+                <p><%=carrito.name %></p>
+            </div>
+            <div class="col">
+                <p>$<%=carrito.precio  %></p>
+            </div>
+            <div class="col">
+                <button class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <% } %>
+<% } else { %>
+    <p class="aler alert-warning">No hay productos en el carrito</p>
+<% } %>
+
+<%- include('../partial/footer.ejs') %>
+
